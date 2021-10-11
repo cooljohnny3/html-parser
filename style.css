@@ -1,0 +1,60 @@
+body {
+    margin: 0;
+    background-color: lightyellow;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    height: 96vh;
+    margin: 2vh 2vw;
+}
+
+h2 {
+    margin-top: 0;
+    margin-bottom: 3px;
+}
+
+#main {
+    display: grid;
+    grid-template-columns: 45rem auto;
+    gap: 10px;
+    margin-bottom: 5px;
+    /* full view - h2 - h2:margin-bottom - main:margin-bottom - submit buton */
+    height: calc(96vh - 1.5em - 3px - 5px - 30px);
+}
+
+#markup-input {
+    padding: 0;
+    resize: none;
+}
+
+#results-content {
+    background-color: white;
+    overflow: auto;
+    border: solid black 1px;
+    margin-bottom: 5px;
+    padding: 5px;
+    /* full view - h2 - h2:margin-bottom - results-content:margin-bottom - results-content:padding - results-content:border - results-controls - main:margin-bottom - submit button*/
+    height: calc(96vh - 1.5em - 3px - 5px - 10px - 2px - 30px - 5px - 30px);
+}
+
+#results-controls {
+    display: flex;
+}
+
+#results-controls button {
+    flex-grow: 1;
+}
+
+button {
+    min-height: 30px ;
+}
+
+.child {
+    margin-left: 2rem;
+}
+
+.empty-parent {
+    margin-left: 1rem;
+}
