@@ -5,15 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>HTML Lexer</title>
+    <title>HTML Parser</title>
 </head>
 <body>
     <div id="container">
-        <h2>HTML Lexer</h2>
+        <h2>HTML Parser</h2>
         <div id="main">
             <textarea name="markup-input" id="markup-input" rows="40"></textarea>
             <div>
-                <div id="results-content"></div>
+                <div id="results-content">
+                    <div id="loader" style="display: none;"></div>
+                </div>
                 <div id="results-controls">
                     <button id="expand-button">Expand All</button>
                     <button id="collapse-button">Collapse all</button>

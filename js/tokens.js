@@ -1,70 +1,98 @@
 class Token {}
 
-class StartTag extends Token {
-    name;
-    properties = [];
+class DocType extends Token {
+    name = '';
+    publicIdentifier;
+    systemIdentifier;
+    forceQuirks = false;
 
-    constructor(name, properties) {
+    constructor() {
         super();
-        this.name = name;
-        this.properties = properties;
     }
 
-    emit() {
-        let htmlString;
-        if(this.properties.length > 0) {
-            htmlString = `<details><summary>StartTag [${this.name}]</summary>`;
-            let propertiesString = '';
-            for(let property of this.properties) {
-                propertiesString += property.emit();
-            }
-            htmlString += `<div class="child">${propertiesString}</div></details>`
-        } else {
-            htmlString = `<div class="empty-parent">StartTag [${this.name}]</div>`
+    toString() {
+        return `<details><summary>DocType</summary><div class="child">name=${this.name}</div></details>`;
+    }
+}
+
+class Attribute {
+    name = '';
+    value = '';
+
+    constructor(name='') {
+        this.name = name;
+    }
+
+    toString() {
+        return `<div>Attribute [name="${this.name}", value="${this.value}"]</div>`;
+    }
+}
+
+class StartTag extends Token {
+    name = '';
+    selfClosing = false;
+    attributes = [];
+
+    constructor() {
+        super();
+    }
+
+    toString() {
+        let attributeString = '';
+        for(let attribute of this.attributes) {
+            attributeString += '<div class="child">' + attribute.toString() + '</div>';
         }
-        return htmlString;
+        return `<details><summary>StartTag</summary><div class="child">name="${this.name}"</div><details class="child"><summary>attributes:</summary>${attributeString}</details></details>`;
     }
 }
 
 class EndTag extends Token {
-    name;
+    name = '';
+    selfClosing = false;
+    attributes = [];
     
-    constructor(name) {
+    constructor() {
         super();
-        this.name = name;
     }
-    
-    emit() {
-        return `<div class="empty-parent">EndTag [${this.name}]</div>`
+
+    toString() {
+        let attributeString = '';
+        for(let attribute of this.attributes) {
+            attributeString += '<div class="child">' + attribute.toString() + '</div>';
+        }
+        return `<details><summary>EndTag</summary><div class="child">name="${this.name}"</div><details class="child"><summary>attributes:</summary>${attributeString}</details></details>`;
     }
 }
 
-class Property extends Token {
-    name;
-    value;
+class Comment extends Token {
+    data = '';
 
-    constructor(name, value) {
+    constructor() {
         super();
-        this.name = name;
-        this.value = value;
     }
-    
-    emit() {
-        return `<div>Property [${this.name}=${this.value}]</div>`
+
+    toString() {
+        return `<div>Comment[data="${this.data}"]</div>`;
     }
 }
 
-class TextContent extends Token {
-    content;
+class Character extends Token {
+    data = '';
 
-    constructor(content) {
+    constructor(data='') {
         super();
-        this.content = content;
+        this.data = data;
     }
-    
-    emit() {
-        return `<details><summary>TextContent</summary><div class="child">"${this.content}"</div></details>`
+
+    toString() {
+        return `<div>Character[data="${this.data}"]</div>`;
     }
 }
 
-export {Token, StartTag, EndTag, Property, TextContent};
+class EOF extends Token {
+    toString() {
+        return 'EOF';
+    }
+}
+
+export {Token, DocType, Attribute, StartTag, EndTag, Comment, Character, EOF};

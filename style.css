@@ -17,7 +17,7 @@ h2 {
 
 #main {
     display: grid;
-    grid-template-columns: 45rem auto;
+    grid-template-columns: calc(50vw - 2vw - 5px) calc(50vw - 2vw - 5px);
     gap: 10px;
     margin-bottom: 5px;
     /* full view - h2 - h2:margin-bottom - main:margin-bottom - submit buton */
@@ -57,4 +57,19 @@ button {
 
 .empty-parent {
     margin-left: 1rem;
+}
+
+#loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    margin: auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
