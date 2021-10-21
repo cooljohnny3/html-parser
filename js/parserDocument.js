@@ -1,7 +1,4 @@
- class ParserDocument {
-    parserCannotChangeMode = false;
-    children = [];
- 
+class ParserDocument {
 
 }
 

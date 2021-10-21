@@ -51,7 +51,6 @@ const TokenizerState = {
 };
 
 class Tokenizer {
-    tokens = [];
     currentTokenizerState = TokenizerState.DATA_STATE;
     returnState;
     currentToken;
@@ -59,11 +58,12 @@ class Tokenizer {
     characterReferenceCode;
     index = 0;
     input;
-    treeConstructor = new TreeConstructor();
+    treeConstructor;
 
-    tokenize(input) {
+    tokenize(input, treeConstructor) {
         this.input = input;
-        while(!(this.tokens[this.tokens.length-1] instanceof Tokens.EOF)) {
+        this.treeConstructor = treeConstructor;
+        while(this.index < this.input.length) {
             console.log('In ' + this.currentTokenizerState + ' Next input char: ' + this.input[this.index]);
             switch(this.currentTokenizerState) {
                 case TokenizerState.DATA_STATE:
@@ -179,7 +179,6 @@ class Tokenizer {
                     this.unimplimented();
             }
         }
-        return this.tokens;
     }
 
     unimplimented() {
@@ -193,8 +192,7 @@ class Tokenizer {
     }
 
     emitToken(token) {
-        this.treeConstructor.construct();
-        this.tokens.push(token);
+        this.treeConstructor.construct(token);
 
         // Start tag self-closing flag was not acknowleged in Tree Construction
         if(token instanceof Tokens.StartTag && !true) {
